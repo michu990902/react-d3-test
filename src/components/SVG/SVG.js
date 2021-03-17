@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useResizeReRender } from '../../hooks/useResizeReRender'
 import './SVG.css'
-import * as d3 from 'd3'
+import { renderTree } from '../../lib/tree'
 
 const SVG = () => {
     const wrapperRef = useRef(null);
@@ -9,15 +9,12 @@ const SVG = () => {
     const refresh = useResizeReRender();
 
     useEffect(() => {
-        const wrapper = d3.select(wrapperRef.current);        
-        const bcr = wrapperRef.current.getBoundingClientRect();
-        const svg = wrapper
-            .append('svg')
-            .attr('width', bcr.width)
-            .attr('height', bcr.height);
+        //
+        const removeFunc = renderTree(wrapperRef);
 
+        //
         return () => {
-            wrapper.remove();
+            // removeFunc();
         }
     }, [refresh]);
 
